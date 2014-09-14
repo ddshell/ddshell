@@ -1,0 +1,15 @@
+[ {
+  "name" : "sysVars",
+  "dispOrder" : 9999,
+  "children" : [ {
+    "name" : "AAA",
+    "code" : "A",
+    "dispOrder" : 1,
+    "children" : [ ]
+  }, {
+    "name" : "BBB",
+    "code" : "B",
+    "dispOrder" : 2,
+    "children" : [ ]
+  } ]
+} ]

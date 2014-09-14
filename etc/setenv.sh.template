@@ -1,0 +1,10 @@
+#!/bin/sh
+
+JAVA_HOME=`/usr/libexec/java_home`
+GROOVY_HOME=/usr/local/groovy/groovy-2.1.9
+
+GRADLE_HOME=/Users/duanaiguo/Documents/Macbook/work/gradle/gradle-2.0
+ECLIPSE_HOME=/Users/duanaiguo/Documents/Macbook/work/eclipse/eclipse-4.3.1
+
+MYSQL_HOME=/usr/local/Cellar/mysql/5.6.13
+MYSQL_LOGON=-uroot

@@ -1,0 +1,7 @@
+[ {
+  "status" : "ENABLED",
+  "loginName" : "test",
+  "password" : "1f82c942befda29b6ed487a51da199f78fce7f05",
+  "disabled" : false,
+  "roleNames" : [ ]
+} ]
