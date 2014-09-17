@@ -1,0 +1,15 @@
+[ {
+  "text" : "Account Management",
+  "level" : 1,
+  "dispOrder" : 9999,
+  "styles" : [ ],
+  "children" : [ {
+    "text" : "Change Password",
+    "url" : "/account/password/edit",
+    "style" : "icon-plus",
+    "level" : 2,
+    "dispOrder" : 9999,
+    "styles" : [ "icon-plus" ],
+    "children" : [ ]
+  } ]
+} ]

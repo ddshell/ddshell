@@ -8,11 +8,6 @@ task cleanEclipseOutput(type: Delete) {
 }
 
 dependencies {
-  def database = baseProject.application.properties['jdbc.database']
-  if (database) {
-    compile project(":${database.toLowerCase()}")
-  }
-
   compile "ch.qos.logback:logback-classic:$logbackVersion"
   compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
   compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"

@@ -12,11 +12,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.example.jpa.CatalogEntity;
+import com.example.api.Schema;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = Catalog.TABLE)
+@Table(name = Schema.T_APP_CATALOG)
 public class Catalog extends CatalogEntity implements Serializable {
 
 	private static final long serialVersionUID = -6921317408594989626L;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
-import com.ddshell.framework.app.service.support.GenericCrudService;
+import com.ddshell.framework.common.util.GenericCrudService;
 import com.example.app.entity.Catalog;
 import com.example.app.repository.CatalogRepository;
 import com.example.app.service.CatalogService;

@@ -12,7 +12,7 @@ task processDdshellResources(type: Copy) {
 }
 
 dependencies {
-  compile project(':api')
+  compile project(":api")
   runtime "jstl:jstl:$jstlVersion"
   providedCompile "javax.servlet:servlet-api:$servletVersion"
 }

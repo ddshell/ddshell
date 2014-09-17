@@ -1,5 +1,6 @@
 dependencies {
-  compile project(":ddshell")
-  compile "org.springframework.data:spring-data-jpa:$springDataJpaVersion"
-  compile "org.springframework:spring-web:$springVersion"
+  def database = baseProject.application.properties['jdbc.database']
+  if (database) {
+    compile project(":${database.toLowerCase()}")
+  }
 }

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ddshell.framework.api.entity.RemoteMessage;
-import com.ddshell.framework.api.service.MessageService;
-import com.ddshell.framework.api.service.RestService;
+import com.ddshell.framework.remote.entity.RemoteMessage;
+import com.ddshell.framework.remote.service.MessageService;
+import com.ddshell.framework.remote.service.RestService;
 import com.example.api.API;
 import com.example.app.service.CatalogService;
 

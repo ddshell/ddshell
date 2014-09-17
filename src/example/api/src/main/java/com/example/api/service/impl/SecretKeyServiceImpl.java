@@ -3,8 +3,8 @@ package com.example.api.service.impl;
 import org.apache.shiro.codec.Base64;
 import org.springframework.stereotype.Component;
 
-import com.ddshell.framework.api.service.SecretKeyService;
-import com.ddshell.framework.api.util.Cryptos;
+import com.ddshell.framework.remote.service.SecretKeyService;
+import com.ddshell.framework.remote.util.Cryptos;
 
 @Component
 public class SecretKeyServiceImpl implements SecretKeyService {

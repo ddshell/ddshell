@@ -6,6 +6,6 @@ import com.example.app.entity.Catalog;
 
 public interface CatalogService {
 
-	public abstract List<Catalog> findByName(String name);
+	public List<Catalog> findByName(String name);
 
 }

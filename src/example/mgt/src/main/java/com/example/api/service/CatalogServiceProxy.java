@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ddshell.framework.api.service.RestService;
+import com.ddshell.framework.remote.service.RestService;
 import com.example.api.API;
 import com.example.api.AppVars;
 import com.example.app.entity.Catalog;
