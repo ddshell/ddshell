@@ -1,0 +1,16 @@
+[ {
+  "pattern" : "/",
+  "permission" : "anon"
+}, {
+  "pattern" : "/index",
+  "permission" : "anon"
+}, {
+  "pattern" : "/api/**",
+  "permission" : "anon"
+}, {
+  "pattern" : "/document/**",
+  "permission" : "anyRoles[VIP]"
+}, {
+  "pattern" : "/**",
+  "permission" : "user"
+} ]

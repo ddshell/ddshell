@@ -81,7 +81,7 @@
     └─var
        ├─lib
        │  └─mysql
-       │     ├─ddshell_example
+       │     ├─ddshell_quickstart
        │     ├─mysql
        │     ├─performance_schema
        │     ├─test
