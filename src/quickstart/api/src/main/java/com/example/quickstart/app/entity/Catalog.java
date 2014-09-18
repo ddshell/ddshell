@@ -13,7 +13,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.example.quickstart.api.Schema;
-import com.example.quickstart.app.entity.CatalogEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -25,8 +24,6 @@ public class Catalog extends CatalogEntity implements Serializable {
 	private String name;
 	private String code;
 	private Integer dispOrder = 9999;
-
-	private String nameViVn;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
 	@OrderBy("dispOrder")
@@ -75,14 +72,6 @@ public class Catalog extends CatalogEntity implements Serializable {
 
 	public void setDispOrder(Integer dispOrder) {
 		this.dispOrder = dispOrder;
-	}
-
-	public String getNameViVn() {
-		return nameViVn;
-	}
-
-	public void setNameViVn(String nameViVn) {
-		this.nameViVn = nameViVn;
 	}
 
 }

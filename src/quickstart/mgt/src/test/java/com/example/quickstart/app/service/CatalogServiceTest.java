@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import com.example.quickstart.app.entity.Catalog;
-import com.example.quickstart.app.service.CatalogService;
 
 @ActiveProfiles("test")
 @ContextConfiguration(locations = "classpath*:/com/ddshell/spring/*.xml")

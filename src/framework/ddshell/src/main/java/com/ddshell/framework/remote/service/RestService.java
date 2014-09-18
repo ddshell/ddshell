@@ -4,7 +4,6 @@ import org.apache.shiro.codec.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,7 +27,6 @@ public class RestService {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 
-	@Async
 	public <T> T post(String sessionId, String url, Object request,
 			Class<T> responseType) {
 		RemoteMessage message = post(sessionId, url, request);
@@ -41,7 +39,6 @@ public class RestService {
 		}
 	}
 
-	@Async
 	public Object postX(String sessionId, String url, Object request,
 			Class<?> parametrizedResponseType, Class<?>... parameterClasses) {
 		RemoteMessage message = post(sessionId, url, request);
