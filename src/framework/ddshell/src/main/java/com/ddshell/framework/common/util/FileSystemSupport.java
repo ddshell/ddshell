@@ -53,9 +53,13 @@ public class FileSystemSupport {
 		return save(src, target);
 	}
 
-	public File save(byte[] bytes, String targetPath) {
-		File target = new File(globalVars.fileSystemRoot, targetPath);
+	public File save(byte[] bytes, String originalFilename,
+			Serializable targetName, String targetDir) {
+		File target = getTargetFile(originalFilename, targetName, targetDir);
+		return save(bytes, target);
+	}
 
+	private File save(byte[] bytes, File target) {
 		try {
 			Files.createParentDirs(target);
 			FileCopyUtils.copy(bytes, target);

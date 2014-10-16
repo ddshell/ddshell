@@ -26,11 +26,20 @@ public class FileUploadController {
 	@Autowired
 	private FileService[] services;
 
-	@RequestMapping(value = "/fileTransfer/{bizType}", method = RequestMethod.POST)
+	@RequestMapping(value = "/fileTransfer/{bizType}/{originalFilename}", method = RequestMethod.POST)
 	@ResponseBody
 	public String transfer(@PathVariable("bizType") String bizType,
-			String originalFilename, @RequestBody byte[] bytes) {
-		return null;
+			@PathVariable("originalFilename") String originalFilename,
+			@RequestBody byte[] bytes) {
+		if (!StringUtils.isEmpty(bizType)) {
+			for (FileService service : services) {
+				if (service.support(bizType)) {
+					return service.saveUploadedFile(bizType, originalFilename,
+							bytes);
+				}
+			}
+		}
+		return "";
 	}
 
 	@RequestMapping(value = "/fileUpload/{bizType}", method = RequestMethod.POST)

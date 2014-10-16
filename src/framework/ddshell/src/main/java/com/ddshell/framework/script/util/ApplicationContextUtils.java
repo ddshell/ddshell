@@ -12,7 +12,6 @@ public class ApplicationContextUtils {
 
 	private static ClassPathXmlApplicationContext getContext() {
 		if (ctx == null) {
-			System.setProperty("spring.profiles.active", "production");
 			ctx = new ClassPathXmlApplicationContext(
 					"classpath*:/com/ddshell/spring/*.xml",
 					"classpath:/spring/*.xml");

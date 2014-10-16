@@ -26,6 +26,8 @@ public abstract class DbInitScript {
 				.getParentFile().getParentFile();
 		File webinf = new File(projectDir, "src/main/webapp/WEB-INF/");
 
+		System.setProperty("spring.profiles.active", "production");
+
 		ApplicationContextUtils.getBean(scriptClass).init(
 				getDataFile(webinf, scriptClass));
 	}

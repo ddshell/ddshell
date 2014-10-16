@@ -4,7 +4,7 @@ import org.apache.shiro.codec.Base64;
 import org.springframework.stereotype.Component;
 
 import com.ddshell.framework.remote.service.SecretKeyService;
-import com.ddshell.framework.remote.util.Cryptos;
+import com.ddshell.framework.security.util.Cryptos;
 
 @Component
 public class SecretKeyServiceImpl implements SecretKeyService {

@@ -1,5 +1,7 @@
 package com.ddshell.framework.security.service;
 
+import java.io.Serializable;
+
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.shiro.SecurityUtils;
@@ -14,6 +16,7 @@ import com.ddshell.framework.common.util.GenericCrudService;
 import com.ddshell.framework.common.util.GlobalVars;
 import com.ddshell.framework.security.entity.User;
 import com.ddshell.framework.security.repository.UserRepository;
+import com.ddshell.framework.security.shiro.ShiroMobileSecurityManager;
 import com.ddshell.framework.security.shiro.entity.ShiroUser;
 import com.ddshell.framework.security.shiro.service.ShiroUserService;
 
@@ -26,6 +29,8 @@ public abstract class UserService<T extends User> extends
 
 	@Autowired
 	private GlobalVars globalVars;
+	@Autowired
+	protected ShiroMobileSecurityManager shiroMobileSecurityManager;
 
 	public T findByLoginName(String loginName) {
 		return ((UserRepository<T>) getRepository()).findByLoginName(loginName);
@@ -58,12 +63,18 @@ public abstract class UserService<T extends User> extends
 	@Transactional
 	public boolean changeLoginUserPassword(String plainOldPassword,
 			String plainNewPassword) {
+		return changeLoginUserPassword(null, plainOldPassword, plainNewPassword);
+	}
+
+	@Transactional
+	public boolean changeLoginUserPassword(Serializable sessionId,
+			String plainOldPassword, String plainNewPassword) {
 		if (StringUtils.isEmpty(plainOldPassword)
 				|| StringUtils.isEmpty(plainNewPassword)) {
 			return false;
 		}
 
-		T loginUser = getLoginUser();
+		T loginUser = getLoginUser(sessionId);
 
 		if (!encodeUserPassword(plainOldPassword, loginUser).equalsIgnoreCase(
 				loginUser.getPassword())) {
@@ -79,10 +90,24 @@ public abstract class UserService<T extends User> extends
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	public T getLoginUser() {
-		Subject subject = SecurityUtils.getSubject();
+		return getLoginUser(SecurityUtils.getSubject());
+	}
 
+	public T getLoginUser(Serializable sessionId) {
+		return getLoginUser(shiroMobileSecurityManager.getSubject(sessionId));
+	}
+
+	public void setLoginUser(T loginUser) {
+		setLoginUser(SecurityUtils.getSubject(), loginUser);
+	}
+
+	public void setLoginUser(Serializable sessionId, T loginUser) {
+		setLoginUser(shiroMobileSecurityManager.getSubject(sessionId),
+				loginUser);
+	}
+
+	private T getLoginUser(Subject subject) {
 		if (!subject.isAuthenticated()) {
 			return null;
 		}
@@ -92,6 +117,7 @@ public abstract class UserService<T extends User> extends
 			return null;
 		}
 
+		@SuppressWarnings("unchecked")
 		T loginUser = (T) session.getAttribute(LOGIN_USER);
 		if (loginUser == null) {
 			loginUser = findByLoginName((String) subject.getPrincipal());
@@ -101,9 +127,7 @@ public abstract class UserService<T extends User> extends
 		return loginUser;
 	}
 
-	public void setLoginUser(T loginUser) {
-		Subject subject = SecurityUtils.getSubject();
-
+	private void setLoginUser(Subject subject, T loginUser) {
 		Session session = subject.getSession(true);
 		if (session == null) {
 			return;

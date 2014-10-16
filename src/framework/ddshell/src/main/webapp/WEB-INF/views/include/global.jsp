@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 <c:if test="${empty INCLUDE_GLOBAL_JSP}">
   <c:set scope="request" var="INCLUDE_GLOBAL_JSP" value="INCLUDE_GLOBAL_JSP" />
-  <c:set scope="request" var="base" value="${request.contextPath}" />
+  <c:set scope="request" var="base" value="<%= request.getContextPath()%>" />
   <c:set scope="request" var="version" value="<%= new java.util.HashMap()%>" />
   <c:set scope="request" var="self" value="<%= new java.util.HashMap()%>" />
   

@@ -26,6 +26,7 @@ dependencies {
   compile "org.freemarker:freemarker:$freemarkerVersion"
   compile "org.hibernate:hibernate-c3p0:$hibernateVersion"
   compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+  compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
   compile "org.springframework.data:spring-data-jpa:$springDataJpaVersion"
   compile "org.springframework:spring-context-support:$springVersion"
   compile "org.springframework:spring-context:$springVersion"

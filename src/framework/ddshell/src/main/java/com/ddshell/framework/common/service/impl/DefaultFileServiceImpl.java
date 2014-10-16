@@ -1,7 +1,6 @@
 package com.ddshell.framework.common.service.impl;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,20 @@ public class DefaultFileServiceImpl implements FileService {
 	}
 
 	@Override
-	public Serializable saveUploadedFile(String bizType, MultipartFile file) {
+	public String saveUploadedFile(String bizType, MultipartFile file) {
 		UUID uuid = UUID.randomUUID();
 		fileSystemSupport.save(file, uuid, bizType);
 
-		return uuid;
+		return uuid.toString();
+	}
+
+	@Override
+	public String saveUploadedFile(String bizType, String originalFilename,
+			byte[] bytes) {
+		UUID uuid = UUID.randomUUID();
+		fileSystemSupport.save(bytes, originalFilename, uuid, bizType);
+
+		return uuid.toString();
 	}
 
 	@Override

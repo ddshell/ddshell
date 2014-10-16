@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.ddshell.framework.remote.entity.RemoteMessage;
-import com.ddshell.framework.remote.util.Cryptos;
+import com.ddshell.framework.security.util.Cryptos;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

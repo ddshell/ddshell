@@ -1,7 +1,6 @@
 package com.ddshell.framework.common.service;
 
 import java.io.File;
-import java.io.Serializable;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +21,17 @@ public interface FileService {
 	 * @param file
 	 * @return 文件唯一索引标识
 	 */
-	public Serializable saveUploadedFile(String biztype, MultipartFile file);
+	public String saveUploadedFile(String biztype, MultipartFile file);
+
+	/**
+	 * @param bizType
+	 * @param originalFilename
+	 * @param bytes
+	 *            文件字节内容
+	 * @return 文件唯一索引标识
+	 */
+	public String saveUploadedFile(String bizType, String originalFilename,
+			byte[] bytes);
 
 	/**
 	 * 查找上传的文件
