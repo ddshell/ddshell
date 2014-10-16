@@ -1,0 +1,9 @@
+delete from mdef_request;
+delete from mdef_response;
+delete from mdef_main;
+delete from mdef_valuetype;
+insert into mdef_valuetype(db_type,java_type,objc_type)values('varchar','String','NSString*');
+insert into mdef_valuetype(db_type,java_type,objc_type)values('integer','Integer','int');
+insert into mdef_valuetype(db_type,java_type,objc_type)values('bigint','Long','long');
+insert into mdef_valuetype(db_type,java_type,objc_type)values('double','Double','double');
+insert into mdef_valuetype(db_type,java_type,objc_type)values('bytes','byte[]','char[]');

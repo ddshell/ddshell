@@ -1,0 +1,1 @@
+<#include "/lib/json.ftl">${buildJson(responseFields, responseGroups)}

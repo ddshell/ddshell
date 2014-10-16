@@ -1,0 +1,11 @@
+{
+	"messageId":"getLoan",
+	"amount":"10000",
+	"applytime":"2014/10/14 10:10:10",
+	"idcardno":"370202197208228012",
+	"interestrate":"12%",
+	"phonenumber":"13904719527",
+	"realname":"李强",
+	"statustext":"贷款发放",
+	"term":"3个月"
+}
