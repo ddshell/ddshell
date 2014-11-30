@@ -14,6 +14,7 @@ public abstract class DbExportScript {
 
 	protected static void export(Class<? extends DbExportScript> scriptClass)
 			throws Exception {
+		ApplicationContextUtils.setActiveProfiles("production");
 		ApplicationContextUtils.getBean(scriptClass).export();
 	}
 

@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
   default-lazy-init="true">
 
-  <bean id="shiroFilter" depends-on="dataInitScript" class="com.ddshell.framework.security.shiro.ShiroDbFilterFactoryBean">
+  <bean id="shiroFilter" class="com.ddshell.framework.security.shiro.ShiroDbFilterFactoryBean">
     <property name="securityManager" ref="securityManager" />
     <property name="loginUrl" value="/login" />
     <property name="successUrl" value="/" />
@@ -16,6 +16,11 @@
         /static/** = anon
       </value>
     </property>
+  </bean>
+
+  <bean id="defaultSecurityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
+    <property name="realm" ref="shiroDbRealm" />
+    <property name="cacheManager" ref="shiroEhcacheManager" />
   </bean>
 
   <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">

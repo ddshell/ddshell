@@ -1,6 +1,3 @@
 dependencies {
-  def database = baseProject.application.properties['jdbc.database']
-  if (database) {
-    compile project(":${database.toLowerCase()}")
-  }
+  compile project(':ddshell')
 }

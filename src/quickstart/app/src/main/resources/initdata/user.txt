@@ -1,0 +1,9 @@
+[ {
+  "loginName" : "370202197208228012",
+  "password" : "1f82c942befda29b6ed487a51da199f78fce7f05",
+  "disabled" : false,
+  "idcardno" : "370202197208228012",
+  "phonenumber" : "13904719527",
+  "realname" : "李强",
+  "roleNames" : [ ]
+} ]

@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +14,6 @@ import com.example.quickstart.security.repository.RoleRepository;
 import com.example.quickstart.security.repository.UserRepository;
 
 @Transactional(readOnly = true)
-@DependsOn("roleInitScript")
 @Component
 public class UserInitScript extends DbInitScript {
 

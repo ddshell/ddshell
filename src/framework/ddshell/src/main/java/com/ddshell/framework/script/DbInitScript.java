@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
 import com.ddshell.framework.script.util.ApplicationContextUtils;
@@ -21,15 +20,8 @@ public abstract class DbInitScript {
 
 	protected static void init(Class<? extends DbInitScript> scriptClass)
 			throws Exception {
-		File projectDir = ResourceUtils
-				.getFile("classpath:application.properties").getParentFile()
-				.getParentFile().getParentFile();
-		File webinf = new File(projectDir, "src/main/webapp/WEB-INF/");
-
-		System.setProperty("spring.profiles.active", "production");
-
-		ApplicationContextUtils.getBean(scriptClass).init(
-				getDataFile(webinf, scriptClass));
+		ApplicationContextUtils.setActiveProfiles("production");
+		ApplicationContextUtils.getBean(scriptClass).init();
 	}
 
 	protected static <T> List<T> load(File datafile, Class<T> valueType)
@@ -41,23 +33,15 @@ public abstract class DbInitScript {
 		return objectMapper.<List<T>> readValue(datafile, javaType);
 	}
 
-	private static File getDataFile(File webinf,
-			Class<? extends DbInitScript> scriptClass) {
-		String className = scriptClass.getSimpleName();
-		return new File(new File(webinf, "data"), className.replaceAll(
-				"InitScript$", "").toLowerCase()
-				+ ".txt");
-	}
-
 	protected final Logger LOG = LoggerFactory.getLogger(getClass());
 
-	@PostConstruct
+	@Transactional
 	public void init() {
 		try {
-			File webinf = ResourceUtils
-					.getFile("classpath:application.properties")
-					.getParentFile().getParentFile();
-			File datafile = getDataFile(webinf, getClass());
+			String name = getClass().getSimpleName()
+					.replaceAll("InitScript$", "").toLowerCase()
+					+ ".txt";
+			File datafile = ResourceUtils.getFile("classpath:initdata/" + name);
 			if (datafile.exists()) {
 				init(datafile);
 				datafile.delete();

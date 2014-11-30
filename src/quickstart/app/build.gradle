@@ -45,7 +45,7 @@ jettyRun {
 jettyRun.doFirst {
   def shell = new GroovyShell(JettyPluginWebAppContext.class.classLoader, new Binding([jettyRun: jettyRun]))
 
-  def jettyConfRoot = new File(project(':').projectDir.parentFile, 'conf/jetty')
+  def jettyConfRoot = new File(GLOBAL_CFG.conf, 'jetty')
   
   def context = shell.evaluate(new File(jettyConfRoot, 'jetty-context.groovy'))
 

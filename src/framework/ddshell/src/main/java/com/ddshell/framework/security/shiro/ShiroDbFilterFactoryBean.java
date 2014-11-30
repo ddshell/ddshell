@@ -23,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 
 import com.ddshell.framework.security.shiro.entity.ShiroResource;
 import com.ddshell.framework.security.shiro.service.ShiroResourceService;
@@ -34,6 +36,11 @@ public class ShiroDbFilterFactoryBean extends ShiroFilterFactoryBean implements
 
 	private static transient final Logger log = LoggerFactory
 			.getLogger(ShiroDbFilterFactoryBean.class);
+
+	@Value("${app.shiro.includes:/**}")
+	private String includes;
+	@Value("${app.shiro.excludes:/api/mobile/**,/api/scripts/init.jsp}")
+	private String excludes;
 
 	@Autowired
 	private ShiroResourceService resourceService;
@@ -113,8 +120,15 @@ public class ShiroDbFilterFactoryBean extends ShiroFilterFactoryBean implements
 		// here - we're just using it because it is a concrete
 		// AbstractShiroFilter instance that accepts
 		// injection of the SecurityManager and FilterChainResolver:
-		return new SpringShiroFilter((WebSecurityManager) securityManager,
-				chainResolver);
+		SpringShiroFilter springShiroFilter = new SpringShiroFilter(
+				(WebSecurityManager) securityManager, chainResolver);
+		if (!StringUtils.isEmpty(includes)) {
+			springShiroFilter.includes = includes.split(",");
+		}
+		if (!StringUtils.isEmpty(excludes)) {
+			springShiroFilter.excludes = excludes.split(",");
+		}
+		return springShiroFilter;
 	}
 
 	private void initFilterChainDefinitions() {
@@ -140,6 +154,8 @@ public class ShiroDbFilterFactoryBean extends ShiroFilterFactoryBean implements
 
 	private static final class SpringShiroFilter extends AbstractShiroFilter {
 
+		private String[] includes;
+		private String[] excludes;
 		private PatternMatcher pathMatcher = new AntPathMatcher();
 
 		protected SpringShiroFilter(WebSecurityManager webSecurityManager,
@@ -160,7 +176,19 @@ public class ShiroDbFilterFactoryBean extends ShiroFilterFactoryBean implements
 				ServletResponse response) throws ServletException, IOException {
 			String requestURI = WebUtils.getPathWithinApplication(WebUtils
 					.toHttp(request));
-			if (pathMatcher.matches("/api/mobile/**", requestURI)) {
+
+			for (String pattern : excludes) {
+				if (pathMatcher.matches(pattern, requestURI)) {
+					return false;
+				}
+			}
+
+			if (includes.length > 0) {
+				for (String pattern : includes) {
+					if (pathMatcher.matches(pattern, requestURI)) {
+						return true;
+					}
+				}
 				return false;
 			}
 

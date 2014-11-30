@@ -144,6 +144,7 @@ public class MobileController {
 
 
 	private GetLoanResponse getGetLoanResponse(GetLoanRequest request) {
+		mobileService.bindSubject(request.getSessionId());
 
 		if (getLoanService == null) {
 			GetLoanResponse response = new GetLoanResponse();
@@ -156,6 +157,7 @@ public class MobileController {
 	}
 
 	private GetPasswordByEmailResponse getGetPasswordByEmailResponse(GetPasswordByEmailRequest request) {
+		mobileService.bindSubject(request.getSessionId());
 
 		if (getPasswordByEmailService == null) {
 			GetPasswordByEmailResponse response = new GetPasswordByEmailResponse();
@@ -168,6 +170,7 @@ public class MobileController {
 	}
 
 	private GetPasswordByPhoneResponse getGetPasswordByPhoneResponse(GetPasswordByPhoneRequest request) {
+		mobileService.bindSubject(request.getSessionId());
 
 		if (getPasswordByPhoneService == null) {
 			GetPasswordByPhoneResponse response = new GetPasswordByPhoneResponse();
@@ -180,6 +183,7 @@ public class MobileController {
 	}
 
 	private GetRegisterVfcodeResponse getGetRegisterVfcodeResponse(GetRegisterVfcodeRequest request) {
+		mobileService.bindSubject(request.getSessionId());
 
 		if (getRegisterVfcodeService == null) {
 			GetRegisterVfcodeResponse response = new GetRegisterVfcodeResponse();
@@ -192,6 +196,7 @@ public class MobileController {
 	}
 
 	private LoginResponse getLoginResponse(LoginRequest request) {
+		mobileService.bindSubject(request.getSessionId());
 
 		if (loginService == null) {
 			LoginResponse response = new LoginResponse();
@@ -204,6 +209,7 @@ public class MobileController {
 	}
 
 	private RegisterResponse getRegisterResponse(RegisterRequest request) {
+		mobileService.bindSubject(request.getSessionId());
 
 		if (registerService == null) {
 			RegisterResponse response = new RegisterResponse();
@@ -216,6 +222,7 @@ public class MobileController {
 	}
 
 	private SubmitLoanResponse getSubmitLoanResponse(SubmitLoanRequest request) {
+		mobileService.bindSubject(request.getSessionId());
 
 		if (submitLoanService == null) {
 			SubmitLoanResponse response = new SubmitLoanResponse();

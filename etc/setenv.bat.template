@@ -9,4 +9,4 @@ set MYSQL_LOGON=-uroot -proot
 
 set ORA_HOME=C:/oraclexe/app/oracle/product/11.2.0/server
 set ORA_DATADIR=C:/oraclexe/app/oracle/oradata/XE
-set ORA_LOGON=ddshell_quickstart/ddshell_quickstart
+set ORA_LOGON=mmc/mmc

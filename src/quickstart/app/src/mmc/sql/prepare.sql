@@ -1,0 +1,9 @@
+delete from mmc_request;
+delete from mmc_response;
+delete from mmc_main;
+delete from mmc_valuetype;
+insert into mmc_valuetype(db_type,java_type,objc_type)values('varchar','String','NSString*');
+insert into mmc_valuetype(db_type,java_type,objc_type)values('integer','Integer','int');
+insert into mmc_valuetype(db_type,java_type,objc_type)values('bigint','Long','long');
+insert into mmc_valuetype(db_type,java_type,objc_type)values('double','Double','double');
+insert into mmc_valuetype(db_type,java_type,objc_type)values('bytes','byte[]','char[]');
