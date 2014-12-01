@@ -1,6 +1,6 @@
 @echo off
 
-call "%~dp0setenv"
+call "%~dp0..\..\..\etc\setenv"
 
 cd /d "%~dp0.."
 

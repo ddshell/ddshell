@@ -1,6 +1,6 @@
 @echo off
 
-call "%~dp0..\..\scripts\setenv"
+call "%~dp0..\..\..\..\etc\setenv"
 
 set GRADLE_OPTS=-Xmx512m -XX:MaxPermSize=512m -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
 rem set GRADLE_USER_HOME=%UserProfile%\.gradle

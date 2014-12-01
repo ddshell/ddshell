@@ -1,11 +1,11 @@
 @echo off
 
-call "%~dp0setenv"
+call "%~dp0..\..\..\etc\setenv"
 
 cd /d "%~dp0.."
 
 rmdir /s /q .\.gradle .\.metadata
-xcopy /s/h ..\conf\eclipse\.metadata .\.metadata\
+xcopy /s/h ..\..\..\conf\eclipse\.metadata .\.metadata\
 call gradle clean cleanEclipse eclipse
 
 set PRGDIR=%cd%

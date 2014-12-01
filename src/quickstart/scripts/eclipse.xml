@@ -23,7 +23,6 @@
       def filter = {file ->
         file.isDirectory() &amp;&amp; 
         file.name.charAt(0) != '.' &amp;&amp; 
-        file.name != 'gbv' &amp;&amp; 
         file.name != 'scripts'
       } as FileFilter
 

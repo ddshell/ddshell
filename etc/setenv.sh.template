@@ -3,8 +3,15 @@
 JAVA_HOME=`/usr/libexec/java_home`
 GROOVY_HOME=/usr/local/groovy/groovy-2.1.9
 
-GRADLE_HOME=/Users/duanaiguo/Documents/Macbook/work/gradle/gradle-2.0
-ECLIPSE_HOME=/Users/duanaiguo/Documents/Macbook/work/eclipse/eclipse-4.3.1
+GRADLE_HOME=/Users/duanaiguo/Documents/Platforms/Host/devel/gradle/gradle-1.8
+ECLIPSE_HOME=/Users/duanaiguo/Documents/Platforms/Host/devel/eclipse/eclipse-4.3.1
 
 MYSQL_HOME=/usr/local/Cellar/mysql/5.6.13
 MYSQL_LOGON=-uroot
+
+PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH
+
+export JAVA_HOME GRADLE_HOME ECLIPSE_HOME NEXUS_HOME MYSQL_HOME MYSQL_LOGON
+
+$NEXUS_HOME/bin/nexus start
+$MYSQL_HOME/bin/mysql.server start

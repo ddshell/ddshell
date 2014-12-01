@@ -2,7 +2,7 @@
 
 SCRDIR=`dirname $0`
 
-. "$SCRDIR"/../../scripts/setenv.sh
+. "$SCRDIR"/../../../../etc/setenv.sh
 
 cd "$SCRDIR/.."
 gradle -Dfile.encoding=UTF-8 clean war

@@ -2,7 +2,7 @@
 
 SCRDIR=`dirname $0`
 
-. "$SCRDIR"/setenv.sh
+. "$SCRDIR"/../../../etc/setenv.sh
 
 cd "$SCRDIR"/..
 
