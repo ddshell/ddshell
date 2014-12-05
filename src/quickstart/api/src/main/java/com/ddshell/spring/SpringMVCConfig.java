@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @Controller
 @Configuration
-@ComponentScan(basePackages = "com.example.**.controller", useDefaultFilters = false, includeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value = {
+@ComponentScan(basePackages = AppConfig.BASE_PACKAGE + ".**.controller", useDefaultFilters = false, includeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value = {
 		Controller.class, ControllerAdvice.class }) })
 public class SpringMVCConfig {
 

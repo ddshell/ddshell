@@ -15,10 +15,16 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@ComponentScan(basePackages = "com.example.quickstart", excludeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value = {
+@ComponentScan(basePackages = AppConfig.BASE_PACKAGE, excludeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value = {
 		Controller.class, ControllerAdvice.class }) })
-@EnableJpaRepositories(basePackages = "com.example.quickstart.**.repository")
+@EnableJpaRepositories(basePackages = AppConfig.BASE_PACKAGE + ".**.repository")
 public class AppConfig {
+
+	public static final String BASE_PACKAGE = "com.example.quickstart";
+
+	static {
+		System.setProperty("app.base-package", BASE_PACKAGE);
+	}
 
 	@Bean
 	public RestTemplate restTemplate() {

@@ -13,6 +13,8 @@ task processDdshellResources(type: Copy) {
 
 dependencies {
   compile project(":api")
+  compile "org.springframework.data:spring-data-redis:$springDataRedisVersion"
+  compile "redis.clients:jedis:$jedisVersion"
   runtime "jstl:jstl:$jstlVersion"
   providedCompile "javax.servlet:servlet-api:$servletVersion"
 }

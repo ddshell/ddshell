@@ -7,6 +7,11 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
   default-lazy-init="true">
 
+  <context:component-scan base-package="com.ddshell">
+    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+  </context:component-scan>
+
   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
     <property name="host" value="${mail.smtp.host:smtp.gmail.com}" />
     <property name="username" value="${mail.smtp.username:ddshell@gmail.com}" />
