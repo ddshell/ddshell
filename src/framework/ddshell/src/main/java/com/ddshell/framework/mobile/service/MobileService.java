@@ -126,16 +126,14 @@ public class MobileService {
 					return createResponse(FAIL, "验签失败.", responseType);
 				}
 
-				byte[] bytes = null;
+				byte[] bytes = Base64.decode(request.getContent());
 
 				if (request.isEncrypt()) {
 					key = getAesKey();
 					if (key == null) {
 						return createResponse(FAIL, "秘钥无效.", responseType);
 					}
-					bytes = Cryptos.aesDecrypt(request.getContent(), key);
-				} else {
-					bytes = Base64.decode(request.getContent());
+					bytes = Cryptos.aesDecrypt(bytes, key);
 				}
 
 				request = objectMapper.readValue(bytes, requestType);

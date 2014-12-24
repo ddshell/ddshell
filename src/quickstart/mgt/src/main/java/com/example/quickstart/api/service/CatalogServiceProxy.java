@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.ddshell.framework.remote.service.RestService;
@@ -18,6 +19,7 @@ public class CatalogServiceProxy implements CatalogService {
 	@Autowired
 	private AppVars appVars;
 	@Autowired
+	@Qualifier("restService")
 	private RestService rest;
 
 	@SuppressWarnings("unchecked")

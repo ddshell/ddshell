@@ -6,9 +6,7 @@ SCRDIR=`dirname $0`
 
 cd "$SCRDIR"/..
 
-rm -rf ./.gradle ./.metadata
-cp -rf ../conf/eclipse/.metadata ./
-gradle clean cleanEclipse eclipse
+gradle clean cleanEclipse wsinit eclipse
 
 PRGDIR=`pwd`
 export PRGDIR

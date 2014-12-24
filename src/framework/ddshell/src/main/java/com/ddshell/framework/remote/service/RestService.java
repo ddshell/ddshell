@@ -32,7 +32,7 @@ public class RestService {
 		RemoteMessage message = post(sessionId, url, request);
 
 		try {
-			return decrypt(message, responseType);
+			return decode(message, responseType);
 		} catch (Throwable t) {
 			LOG.error(t.getMessage(), t);
 			throw new RuntimeException(t.getMessage(), t);
@@ -44,7 +44,7 @@ public class RestService {
 		RemoteMessage message = post(sessionId, url, request);
 
 		try {
-			return decrypt(message, parametrizedResponseType, parameterClasses);
+			return decode(message, parametrizedResponseType, parameterClasses);
 		} catch (Throwable t) {
 			LOG.error(t.getMessage(), t);
 			throw new RuntimeException(t.getMessage(), t);
@@ -58,8 +58,8 @@ public class RestService {
 
 		String sessionId = message.getSessionId();
 		try {
-			return encrypt(sessionId,
-					service.execute(decrypt(message, requestType)));
+			return encode(sessionId,
+					service.execute(decode(message, requestType)));
 		} catch (Throwable t) {
 			return fail(sessionId, t);
 		}
@@ -73,11 +73,15 @@ public class RestService {
 
 		String sessionId = message.getSessionId();
 		try {
-			return encrypt(sessionId, service.execute(decrypt(message,
+			return encode(sessionId, service.execute(decode(message,
 					parametrizedRequestType, parameterClasses)));
 		} catch (Throwable t) {
 			return fail(sessionId, t);
 		}
+	}
+
+	protected boolean isEncrypt() {
+		return false;
 	}
 
 	private RemoteMessage post(String sessionId, String url, Object request) {
@@ -87,7 +91,7 @@ public class RestService {
 
 		try {
 			message = restTemplate.postForObject(url,
-					encrypt(sessionId, request), RemoteMessage.class);
+					encode(sessionId, request), RemoteMessage.class);
 		} catch (Throwable t) {
 			LOG.error(t.getMessage(), t);
 			throw new RuntimeException(t.getMessage(), t);
@@ -98,40 +102,49 @@ public class RestService {
 		return message;
 	}
 
-	private RemoteMessage encrypt(String sessionId, Object value)
+	private RemoteMessage encode(String sessionId, Object value)
 			throws Exception {
-		byte[] ciphertext = Cryptos.aesEncrypt(
-				objectMapper.writeValueAsBytes(value),
-				secretKeyService.getAesKey(sessionId));
+		byte[] content = objectMapper.writeValueAsBytes(value);
 
-		byte[] mac = Cryptos.hmacSha1(ciphertext,
+		if (isEncrypt()) {
+			content = Cryptos.aesEncrypt(content,
+					secretKeyService.getAesKey(sessionId));
+		}
+
+		byte[] mac = Cryptos.hmacSha1(content,
 				secretKeyService.getHmacKey(sessionId));
 
-		return new RemoteMessage(sessionId, Base64.encodeToString(ciphertext),
+		return new RemoteMessage(sessionId, Base64.encodeToString(content),
 				Base64.encodeToString(mac));
 	}
 
-	private <T> T decrypt(RemoteMessage message, Class<T> valueType)
+	private <T> T decode(RemoteMessage message, Class<T> valueType)
 			throws Exception {
-		return objectMapper.readValue(decrypt(message), valueType);
+		return objectMapper.readValue(decode(message), valueType);
 	}
 
-	private Object decrypt(RemoteMessage message, Class<?> parametrized,
+	private Object decode(RemoteMessage message, Class<?> parametrized,
 			Class<?>... parameterClasses) throws Exception {
 		JavaType javaType = objectMapper.getTypeFactory()
 				.constructParametricType(parametrized, parameterClasses);
-		return objectMapper.readValue(decrypt(message), javaType);
+		return objectMapper.readValue(decode(message), javaType);
 	}
 
-	private byte[] decrypt(RemoteMessage message) {
+	private byte[] decode(RemoteMessage message) {
 		byte[] hmacKey = secretKeyService.getHmacKey(message.getSessionId());
 		if (!Cryptos
 				.isMacValid(message.getMac(), message.getContent(), hmacKey)) {
 			throw new RuntimeException("mac invalid.");
 		}
 
-		byte[] aesKey = secretKeyService.getAesKey(message.getSessionId());
-		return Cryptos.aesDecrypt(message.getContent(), aesKey);
+		byte[] content = Base64.decode(message.getContent());
+
+		if (isEncrypt()) {
+			byte[] aesKey = secretKeyService.getAesKey(message.getSessionId());
+			content = Cryptos.aesDecrypt(content, aesKey);
+		}
+
+		return content;
 	}
 
 	private void onFail(RemoteMessage message) {

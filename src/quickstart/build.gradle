@@ -143,3 +143,36 @@ subprojects {
     mavenCentral name:'restlet', artifactUrls: ["http://maven.restlet.org/"]
   }
 }
+
+task wsclean << {
+  subprojects {
+    delete new File(projectDir, '.settings')
+    delete new File(projectDir, 'scripts/stdout.log')
+  }
+  delete new File(projectDir, '.metadata')
+  delete new File(projectDir, '.gradle')
+}
+
+task wsinit(dependsOn: wsclean) << {
+  copy {
+    from new File(projectDir.parentFile, 'conf/eclipse/.metadata')
+    into new File(projectDir, '.metadata')
+  }
+}
+
+task rebuildRESTful << {
+  copy {
+    from new File(project(':api').projectDir, 'src/main/java/com/example/quickstart/app/service')
+    into new File(project(':app').projectDir, 'src/main/java/com/example/quickstart/api/controller')
+    rename { fileName ->
+      fileName.replace('Service', 'Controller1')
+    }
+    filter { line ->
+      def matcher = (line =~ /\w+\s+interface(\s+)(\w+)Service/)
+      if (matcher.count) {
+        println matcher[0][2]
+      }
+      line
+    }
+  }
+}

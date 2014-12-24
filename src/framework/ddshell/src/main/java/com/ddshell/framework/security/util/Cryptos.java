@@ -22,43 +22,13 @@ public class Cryptos {
 		Security.addProvider(new BouncyCastleProvider());
 	}
 
-	/**
-	 * @param mac
-	 * @param input
-	 * @param key
-	 * @return
-	 */
 	public static boolean isMacValid(String mac, String input, byte[] key) {
 		if (StringUtils.isEmpty(mac)) {
 			return StringUtils.isEmpty(input);
 		}
 
-		return mac.equals(hmacSha1(input, key));
-	}
-
-	/**
-	 * AES算法解密
-	 * 
-	 * @param ciphertext
-	 *            base64编码的密文
-	 * @param key
-	 *            本地存储的密钥
-	 * @return
-	 */
-	public static byte[] aesDecrypt(String ciphertext, byte[] key) {
-		try {
-			return aesDecrypt(Base64.decode(ciphertext), key);
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
-	}
-
-	public static String hmacSha1(String input, byte[] key) {
-		try {
-			return Base64.encodeToString(hmacSha1(Base64.decode(input), key));
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return mac.equals(Base64.encodeToString(hmacSha1(Base64.decode(input),
+				key)));
 	}
 
 	public static byte[] aesEncrypt(byte[] plaintext, byte[] key) {
